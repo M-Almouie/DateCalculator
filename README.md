@@ -1,10 +1,10 @@
 # DateCalculator
 # Author: Daniel Al Mouiee
 # Date: 28/08/2018
-# Python script to calculate the number of days between two given dates
-# Assumptions:
-#	1: Dates are between 01/01/1900 and 12/12/2999
-#	2: The start and end DAY are NOT counted 
+Python script to calculate the number of days between two given dates
+Assumptions:
+1: Dates are between 01/01/1900 and 12/12/2999
+2: The start and end DAY are NOT counted 
 You have joined a science project where a series of experiments are run for which you need to
 calculate the number of full days elapsed in between two events.
 The first and the last day are considered partial days and never counted. Following this logic, the

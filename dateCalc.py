@@ -2,11 +2,11 @@
 # Date: 28/08/2018
 # Python script to calculate the number of days between two given dates
 # Assumptions:
-#	1: Dates are between 01/01/1900 and 12/12/2999
+#	1: Dates are between 01/01/1900 and 31/12/2999
 #	2: The start and end DAY are NOT counted 
 
 #!/usr/bin/python3
-import sys, math, fileinput
+import sys, math
 res = 'invalid'
 shortMonth = [4,6,9,11]
 longMonth = [1,3,5,7,8,10,12]
@@ -97,19 +97,8 @@ def checkLeapMonth(x):
 
 def checkLeapYear(x):
 	bool = 0
-	if ((x[2] % 4) == 0):
-		if x[2] % 100 == 0:
-			if x[2] % 400 == 0:
-				bool = 1
-			else:
-				bool = 0
-		else:
-			bool = 1
-	else:
-		bool = 0
-
-def checkLeapYearNum(x):
-	bool = 0
+	if type(x) is list:
+		x = x[2]
 	if ((x % 4) == 0):
 		if x % 100 == 0:
 			if x % 400 == 0:
@@ -122,7 +111,7 @@ def checkLeapYearNum(x):
 		bool = 0
 
 def checkYearDay(x):
-	if checkLeapYearNum(x) == 1:
+	if checkLeapYear(x) == 1:
 		return 366
 	else:
 		return 365
@@ -152,37 +141,25 @@ if endDate[2] == startDate[2]:
 		if endDate[0] == startDate[0]:
 			res = 0
 		else:
-			#years = abs(endDate[2]-startDate[2])
-			#months = abs(endDate[1]-startDate[1])
 			days = abs(endDate[0] - startDate[0]) - 1
 			res = days
 	else:
-		#Successive months
-		if abs(endDate[1]-startDate[1]) == 1:
-			temp1 = endDayMonth(startDate)
-			temp2 = endDate[0]
-			res = temp1 + temp2 - 1
-		#Not successive months
-		else:
-			temp1 = endDayMonth(startDate)
-			temp2 = endDate[0]
-			temp3 = 0
+		temp1 = endDayMonth(startDate)
+		temp2 = endDate[0]
+		temp3 = 0
+		#Not successive months if true
+		if abs(endDate[1]-startDate[1])!= 1:
 			for i in range(startDate[1]+1,endDate[1]):
 				temp3 += checkMonth(i)
-			res = temp1 + temp2 + temp3 - 1
+		res = temp1 + temp2 + temp3 - 1
 #Different Year
 else:
-	#Successive years
-	if abs(endDate[2]-startDate[2]) == 1:
-		temp1 = startDaysSoFar(startDate)
-		temp2 = endDaysSoFar(endDate)
-		res = temp1 + temp2 - 1
-	#Not sucessive years
-	else:
-		temp1 = startDaysSoFar(startDate)
-		temp2 = endDaysSoFar(endDate)
-		temp3 = 0
+	temp1 = startDaysSoFar(startDate)
+	temp2 = endDaysSoFar(endDate)
+	temp3 = 0
+	#Not sucessive years if true
+	if abs(endDate[2]-startDate[2]) != 1:
 		for i in range(startDate[2]+1,endDate[2]):
 			temp3 += checkYearDay(i)		
-		res = temp1 + temp2 + temp3
+	res = temp1 + temp2 + temp3 
 print("Days between dates = "+str(res))

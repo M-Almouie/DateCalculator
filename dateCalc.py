@@ -31,7 +31,7 @@ def swapDates(x,y):
 	bool = 0
 	if x[2] < y[2]:
 		bool = 1
-	elif x[1] < y[1]:
+	elif x[1] < y[1] and x[2] == y[2]:
 		bool = 1
 	return bool
 
@@ -48,11 +48,13 @@ def endDayMonth(x):
 	return temp
 
 def startDaysSoFar(x):
+	print(x)
 	if x[1] == 1:
 		daysSoFar = x[0]
 	else:
 		temp = 0
 		for i in range(1,x[1]):
+			
 			if checkLeapYear(x) == 1 and i == 2:
 				temp += checkLeapMonth(i)
 			else:
